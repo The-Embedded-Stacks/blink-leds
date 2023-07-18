@@ -25,7 +25,7 @@ extern uint32_t _end;
     Prototypes
 */
 extern int main(void);
-void __libc_init_array(void); // What is this?
+void __libc_init_array(void);
 
 /*
     STM32F407xxx exception & interrupt handler function prototypes
@@ -265,7 +265,7 @@ void Reset_Handler(void) {
         *pDst++ = 0;
     }
 
-     __libc_init_array(); //what does this do?
+     __libc_init_array();
 
     //Call the main() function
     main();
