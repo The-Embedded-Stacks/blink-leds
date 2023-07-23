@@ -26,11 +26,11 @@
 #define IPR1_BASE 0xE000E400 // Interrupt Set-Enable Register 0
 
 // LED control variable
-volatile uint32_t led_to_toggle = 11;
+extern volatile uint32_t led_to_toggle;
 
 /*
     Prototypes
 */
-
+void init_hardware(void);
 
 #endif

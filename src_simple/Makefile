@@ -13,10 +13,10 @@ GBD = arm-none-eabi-gdb
 MACH = cortex-m4
 
 # specify the directory of the startup file
-STARTUP_DIR = ./src_simple
+STARTUP_DIR = .
 
 # specify the directory of source files
-SRC_DIR = ./src_simple
+SRC_DIR = .
 
 # linker script
 LINKER_SCRIPT = linker_stm32F4.ld

@@ -89,5 +89,4 @@ void init_hardware(void)
 uint32_t* NVIC_IPR1 = (uint32_t*)(IPR1_BASE + ((EXTI0_IRQ / 4) * 4));
 *NVIC_IPR1 &= ~(0xFF << ((EXTI0_IRQ % 4) * 8)); // Clear second index in IPR1 before setting priority level
 *NVIC_IPR1 |= ((15 << 4) << ((EXTI0_IRQ % 4) * 8)); // Shift lowest priority level to priority range than shift to correct index position
-
 }

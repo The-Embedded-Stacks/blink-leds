@@ -22,6 +22,9 @@ extern uint32_t _bss_start;
 extern uint32_t _bss_end;
 extern uint32_t _end;
 
+// Initialize LED # control vairable
+volatile uint32_t led_to_toggle = 11;
+
 /*
     Prototypes
 */
