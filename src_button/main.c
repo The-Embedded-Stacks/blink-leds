@@ -15,15 +15,19 @@
 */
 int main(void)
 {
-    uint32_t master_time = 0;
-    init_hardware();
-    init_leds(); // Enable clocks - Set modes - Turn OFF LEDs
+    init_hardware(); // Enable clocks
+    init_user_button(); // Configure the user button (PA0)
+    init_leds(); // Configure the LEDs - Turn OFF LEDs
 
     /*
         Main loop
     */
     while(1)
     {
+        if (led_to_toggle >= 12)
+        {
+            toggle_led(led_to_toggle);
+        }
     }
 
     return 0; // Will never be reached - precaution

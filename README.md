@@ -1,7 +1,7 @@
 # blink-leds
 ## There are two bare-metal programs for the STM32F407 Discovery Board within this repo:
 1. Simple program to blink the on-borad LEDs (PD12 -PD15) at different rates found in [src_simple](src_simple/main.c).
-- __NOTE:__ Concurrency is not explored in this program
+    - __NOTE:__ Concurrency is not explored in this program
 2. A program that incorporates the user button (PA0) and reset button (nRST) to control the on-borad LEDs found in [src_button](src_button/main.c).
 
 

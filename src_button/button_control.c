@@ -2,6 +2,7 @@
     HEADER
 */
 #include <stdint.h>
+#include "hardware_init.h"
 #include "button_control.h"
 
 /*

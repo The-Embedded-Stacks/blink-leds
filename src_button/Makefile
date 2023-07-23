@@ -13,10 +13,10 @@ GBD = arm-none-eabi-gdb
 MACH = cortex-m4
 
 # specify the directory of the startup file
-STARTUP_DIR = ./src_simple
+STARTUP_DIR = ./src_button
 
 # specify the directory of source files
-SRC_DIR = ./src_simple
+SRC_DIR = ./src_button
 
 # linker script
 LINKER_SCRIPT = linker_stm32F4.ld
@@ -32,7 +32,9 @@ LDFLAGS = -T$(LINKER_SCRIPT) -mcpu=$(MACH) -mthumb -mfloat-abi=soft --specs=nosy
 # object files
 OBJS = $(STARTUP_DIR)/startup_stm32F4.o \
     $(SRC_DIR)/main.o \
+	$(SRC_DIR)/hardware_init.o \
     $(SRC_DIR)/led_control.o \
+	$(SRC_DIR)/button_control.o \
 	$(SRC_DIR)/syscalls.o
 
 # declare all clean debug load flash as "fake" (isn't a file but a recipe)

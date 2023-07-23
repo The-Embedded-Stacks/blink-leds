@@ -3,8 +3,8 @@
 /*
     Include Guard - see led.h for more details
 */
-#ifndef LED_H_
-#define LED_H_
+#ifndef LED_CONTROL_H_
+#define LED_CONTROL_H_
 
 /*
     Define LED locations - found in user manual
