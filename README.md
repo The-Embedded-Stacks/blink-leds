@@ -22,9 +22,15 @@
 # Button Controlled LED Program Breakdown
 - hardware_init
 - button_control
+    - configuration
 - led_control
+    - configuration
+    - function definitions for led ON, led OFF, led STATUS
 - main
+    - super loop to toogle the on-board LEDs in succession - controlled with the user button (PA0)
 - Startup File
+    - initialize exceptions and interrupt handelers
+    - defined: Reset Handler, EXTI0 IRQ, & TIM2 IRQ 
 - Linker Script
 - Makefile
 - System Calls

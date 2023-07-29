@@ -80,18 +80,3 @@ void led_off(uint8_t led_num)
     uint32_t* pGPIOD_ODR = (uint32_t*)(GPIOD_BASE + 0x14); // access the data register for GPIOD
     *pGPIOD_ODR &= ~(1U << led_num);
 }
-
-/*
-    Intake: led # 12,13,14,15
-    Output: LED Staus - 0 or 1 (OFF or ON)
-    Function: Take in led # and check where the position is set to 1 or 0
-*/
-uint8_t get_led_status(uint8_t led_num)
-{
-    uint32_t status = 0;
-    uint32_t* pGPIOD_ODR = (uint32_t*)(GPIOD_BASE + 0x14);
-
-    status = *pGPIOD_ODR & (1U << led_num);
-
-    return (status != 0); // return true or false
-}

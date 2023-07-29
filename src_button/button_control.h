@@ -1,5 +1,5 @@
 /*
-    HEADER
+    Header file (interface - specification file) for the on-board user button (PA0)
 */
 
 /*

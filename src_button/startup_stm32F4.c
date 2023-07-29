@@ -23,7 +23,9 @@ extern uint32_t _bss_end;
 extern uint32_t _end;
 
 // Initialize LED # control vairable
-volatile uint32_t led_to_toggle = 11;
+volatile uint8_t led_to_toggle = 11;
+volatile uint8_t button_pressed_flag = 0;
+volatile uint8_t turn_off_flag = 0;
 
 /*
     Prototypes
@@ -254,7 +256,6 @@ void Reset_Handler(void) {
     uint8_t *pSrc = (uint8_t*)&_si_data; //FLASH
     uint32_t i = 0;
 
-    //
     for(i=0; i < size; i++)
     {
         *pDst++ = *pSrc++;
@@ -380,12 +381,7 @@ void EXTI0_IRQHandler(void) {
 
   if (*pEXTI_PR & (1 << 0))
   {
-    /*
-        Control which LED # is to be toggled
-        If the LED # is > or = to 15 reset to 12 else increment the # by 1
-    */
-    led_to_toggle = led_to_toggle >= 15 ? 12 : led_to_toggle + 1;
-
+    button_pressed_flag = 1; // Set flag to retain button press input until utilized
     *pEXTI_PR |= (1 << 0); // Clear interrupt bit
 
   }
@@ -519,8 +515,56 @@ void TIM1_CC_IRQHandler(void) {
 
 // TIM2 global interrupt handler
 void TIM2_IRQHandler(void) {
-    // TODO: Handle TIM2 global interrupt
-    while(1);
+    uint32_t* pTIM2_SR = (uint32_t*)(TIM2_BASE + 0x10);
+
+    /*
+        From the reference manual:
+        Bit 0 UIF: Update interrupt flag
+            ″ This bit is set by hardware on an update event. It is cleared by software.
+            0: No update occurred.
+            1: Update interrupt pending. This bit is set by hardware when the registers are updated:
+                ″ At overflow or underflow (for TIM2 to TIM5) and if UDIS=0 in the TIMx_CR1 register.
+                ″ When CNT is reinitialized by software using the UG bit in TIMx_EGR register, if URS=0
+                and UDIS=0 in the TIMx_CR1 register.
+            When CNT is reinitialized by a trigger event (refer to the synchro control register description),
+            if URS=0 and UDIS=0 in the TIMx_CR1 register.
+    */
+    if (*pTIM2_SR & (1U <<0)) 
+    {
+        *pTIM2_SR &= ~(1U <<0); // clear the TIM2 UIF
+
+        // Every 1s check to see if the button has been pressed
+        if (button_pressed_flag)
+        {
+            /*
+            Control which LED # is to be toggled
+            If the LED # is > than 15 reset to 12 else increment the # by 1
+            The turn_off_flag controls whether led_on or led_off is invoke in main.c
+                * On the n (first) pass through 12 - 15 the LEDs will be turned ON
+                * On the n + 1 pass through 12 - 15 the LEDs will be turned OFF
+            */
+            if (led_to_toggle > 15) 
+            {
+                if (turn_off_flag == 0) 
+                {
+                    turn_off_flag = 1;
+                    led_to_toggle = 12;
+                } 
+                else 
+                {
+                    turn_off_flag = 0;
+                    led_to_toggle = 12;
+                }
+            } 
+            else 
+            {
+                led_to_toggle++;
+            }
+
+            // Clear the button pressed flag
+            button_pressed_flag = 0;
+        }
+    }   
 }
 
 // TIM3 global interrupt handler

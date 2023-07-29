@@ -1,5 +1,5 @@
 /*
-    HEADER
+    main file (body file) for the on-board user button (PA0)
 */
 #include <stdint.h>
 #include "hardware_init.h"

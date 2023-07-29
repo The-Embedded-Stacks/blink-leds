@@ -1,3 +1,6 @@
+/*
+    Header file (interface - specification file) for main
+*/
 #include <stdint.h>
 
 /*
@@ -10,4 +13,5 @@
     Prototypes
 */
 void toggle_led(uint8_t led);
+
 #endif
